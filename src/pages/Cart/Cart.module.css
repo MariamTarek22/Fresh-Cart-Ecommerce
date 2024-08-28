@@ -1,0 +1,23 @@
+.cont{
+    background: linear-gradient(135deg, #f9f9f9, #e0e0e0); /* Subtle gradient */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.label{
+ font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  padding: 5px;
+}
+.amount{
+    font-size: 25px;
+    font-weight: bold;
+    color: #28a745; 
+    padding: 5px;
+}

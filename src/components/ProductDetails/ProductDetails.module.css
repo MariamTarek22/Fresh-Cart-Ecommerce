@@ -1,0 +1,20 @@
+.thumbnailImage {
+    cursor: pointer;
+    padding: 5px;
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+    width: 80px;
+  }
+  
+  .slickCurrent .thumbnailImage {
+    border: 2px solid #007bff; /* Active thumbnail border color */
+  }
+
+  @media( max-width: 767px){
+
+    .thumbnailImage {
+      width: 80%;
+
+    }
+    
+  }
