@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import style from "./ProductDetails.module.css";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
 import { CartContext } from "../../Context/CartContext";
 import toast from "react-hot-toast";
 import { WishListContext } from "../../Context/WishListContext";
 import { Helmet } from "react-helmet-async";
+import ProductCard from './../ProductCard/ProductCard';
 
 export default function ProductDetails() {
   let { id, category } = useParams(); //get me what i sent in url
@@ -24,31 +25,30 @@ export default function ProductDetails() {
     speed: 1000,
     autoplaySpeed: 3000,
   };
-  let { addProductToWishList, getLoggedWishList } = useContext(WishListContext);
+
+  let { addProductToWishList, getLoggedWishList, removeWishListItem,wishList , setWishList } =
+    useContext(WishListContext);
   const [Loading, setLoading] = useState(false);
 
   async function getWishListItems() {
     let response = await getLoggedWishList();
-    console.log(response);
 
     if (response?.data?.status == "success") {
       let wishlistProductsIds = response.data.data.map((product) => product.id);
-      setwishlist(wishlistProductsIds);
+      setWishList(wishlistProductsIds);
       setLoading(false);
     }
 
     if (response?.response?.status == 404) {
       setLoading(false);
-      setwishlist({});
+      setWishList({});
     }
   }
 
   async function addToWishList(id) {
-    setLoading(true);
     let res = await addProductToWishList(id);
-    console.log(res.data);
     if (res.data.status == "success") {
-      setwishlist(res.data.data);
+      setWishList(res.data.data);
       setLoading(false);
       toast.success(res.data.message, {
         position: "top-right",
@@ -67,6 +67,37 @@ export default function ProductDetails() {
     }
   }
 
+  async function removeFromWishList(id) {
+    let res = await removeWishListItem(id);
+    if (res.data.status == "success") {
+      setWishList(res.data.data);
+      setLoading(false);
+      toast.success(res.data.message, {
+        position: "top-right",
+        style: {
+          padding: "10px",
+        },
+      });
+    } else {
+      setLoading(false);
+      toast.error(res.data.message, {
+        position: "top-right",
+        style: {
+          padding: "10px",
+        },
+      });
+    }
+  }
+  function HandleAddToWishList(id) {
+    setLoading(true);
+    let productFound = wishList.find((productId) => productId == id);
+    if (productFound) {
+      removeFromWishList(id);
+    } else {
+      addToWishList(id);
+    }
+  }
+
   const settingsThumbs = {
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -81,7 +112,6 @@ export default function ProductDetails() {
     axios
       .get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
       .then((res) => {
-        //console.log(res.data.data);
         setproudct(res.data.data);
         setLoading(false);
       })
@@ -96,8 +126,6 @@ export default function ProductDetails() {
       .get(`https://ecommerce.routemisr.com/api/v1/products`)
       .then((res) => {
         setLoading(false);
-
-        //console.log(res.data.data);
         let afterFilter = res.data.data.filter((product) => {
           return product.category.name == category;
         });
@@ -109,22 +137,12 @@ export default function ProductDetails() {
         console.log(res);
       });
   }
-  //console.log(relatedProducts);
-  const [wishlist, setwishlist] = useState([]);
 
   useEffect(() => {
     getProduct();
     getRelatedProducts();
     getWishListItems();
   }, [id, category]); //why making warningggg?
-
-  useEffect(() => {
-    // Any additional logic that needs to happen when wishlist changes
-    console.log("Wishlist updated:", wishlist);
-  }, [wishlist]);
-  function scrollUp() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
 
   let {
     addProductToCart,
@@ -203,6 +221,8 @@ export default function ProductDetails() {
       <Helmet>
         <title>Product Details</title>
       </Helmet>
+
+     {/* loaders */}
       <div
         className={
           Loading
@@ -225,7 +245,6 @@ export default function ProductDetails() {
           <div className="sk-circle12 sk-child"></div>
         </div>
       </div>
-
       <div
         className={
           addProductLoading
@@ -252,6 +271,7 @@ export default function ProductDetails() {
       {proudct ? (
         <>
           <div className="row items-center ">
+            {/* product images slider */}
             <div className="w-full md:w-1/4">
               <Slider
                 {...settingsMain}
@@ -280,14 +300,24 @@ export default function ProductDetails() {
                 ))}
               </Slider>
             </div>
+
+            {/* product data card */}
             <div className="w-full md:w-3/4 p-4 text-left px-7">
               <h3 className="capitalize font-semibold text-2xl">
                 {proudct?.title}
               </h3>
+              <h4 className="font-semibold my-4 text-emerald-700">{proudct?.category.name}</h4>
               <h4 className="text-gray-700 my-4">{proudct?.description}</h4>
-              <h4 className="font-semibold">{proudct?.category.name}</h4>
               <div className=" flex justify-between p-3 my-5">
-                <span>{proudct?.price} EGP</span>
+                {
+                  proudct?.priceAfterDiscount? 
+                  <div className="flex gap-2">
+                    <span className= 'line-through text-red-600'>{proudct?.price} EGP</span>
+                    <span className="text-slate-900 font-semibold">{proudct?.priceAfterDiscount} EGP</span>
+                  </div> :
+                 <span className='text-slate-900 no-underline font-semibold'>{proudct?.price} EGP</span>
+                }
+                
                 <span>
                   <i className="fas fa-star px-1 text-yellow-300"></i>
                   {proudct?.ratingsAverage}
@@ -301,12 +331,12 @@ export default function ProductDetails() {
                   <i className="fa-solid fa-plus"></i> Add to Cart
                 </button>
                 <span
-                  onClick={() => addToWishList(proudct.id)}
+                  onClick={() => HandleAddToWishList(proudct.id)}
                   className="cursor-pointer"
                 >
                   <i
                     className={
-                      wishlist.find((productid) => productid == proudct.id)
+                      wishList.find((productid) => productid == proudct.id)
                         ? "fa-solid fa-heart text-xl my-2 mx-3 text-red-600"
                         : "fa-solid fa-heart text-xl my-2 mx-3"
                     }
@@ -318,6 +348,7 @@ export default function ProductDetails() {
         </>
       ) : null}
 
+      {/* related products */}
       {relatedProducts.length > 0 ? (
         <h2 className="font-semibold text-2xl mt-5 mx-5 text-left text-emerald-300">
           Related Products :
@@ -327,56 +358,7 @@ export default function ProductDetails() {
         {relatedProducts.length > 0
           ? relatedProducts.map((product) => {
               return (
-                <div key={product.id} className="w-full  lg:w-1/4 md:w-1/3">
-                  <div className="product p-5 ">
-                    <div onClick={scrollUp}>
-                      <Link
-                        to={`/productDetails/${product.category.name}/${product.id}`}
-                      >
-                        <img
-                          src={product.imageCover}
-                          className="w-full"
-                          alt=""
-                        />
-                        <h3 className=" text-emerald-600">
-                          {product.category.name}
-                        </h3>
-                        <h3 className="mb-2 font-semibold">
-                          {product.title.split(" ").slice(0, 2).join(" ")}
-                        </h3>
-                        <div className=" flex justify-between p-3">
-                          <span>{product.price} EGP</span>
-                          <span>
-                            <i className="fas fa-star px-1 text-yellow-300"></i>
-                            {product.ratingsAverage}
-                          </span>
-                        </div>
-                      </Link>
-                    </div>
-                    <div className="flex  ">
-                      <button
-                        onClick={() => addToCart(product.id)}
-                        className="btn"
-                      >
-                        <i className="fa-solid fa-plus"></i> Add to Cart
-                      </button>
-                      <span
-                        onClick={() => addToWishList(product.id)}
-                        className="cursor-pointer"
-                      >
-                        <i
-                          className={
-                            wishlist.find(
-                              (productid) => productid == product.id
-                            )
-                              ? "fa-solid fa-heart text-xl my-2 mx-3 text-red-600"
-                              : "fa-solid fa-heart text-xl my-2 mx-3"
-                          }
-                        ></i>
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                <ProductCard product={product} key={product.id}/>
               );
             })
           : null}

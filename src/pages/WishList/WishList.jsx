@@ -18,7 +18,6 @@ export default function WishList() {
   async function getWishListItems() {
     setLoading(true);
     let response = await getLoggedWishList();
-    console.log(response);
 
     if (response?.data?.status == "success") {
       setLoading(false);
@@ -61,14 +60,11 @@ export default function WishList() {
   async function deleteProduct(id) {
     setupdateLoading(true);
     let response = await removeWishListItem(id);
-    console.log(response.data);
     if (response.data.status == "success") {
       setupdateLoading(false);
-      console.log(response.data.data);
       let newList = wishList.filter((product) =>
         response.data.data.includes(product.id)
       );
-      console.log(newList);
       setwishList(newList);
 
       toast.success("Product Removed successfully", {
@@ -152,16 +148,7 @@ export default function WishList() {
             }
           >
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th scope="col" className="px-16 py-3">
-                    <span className="sr-only">Image</span>
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Product
-                  </th>
-                </tr>
-              </thead>
+             
               <tbody>
                 {wishList?.map((product) => {
                   return (
@@ -177,7 +164,7 @@ export default function WishList() {
                         />
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                        {product?.title}
+                        {product?.title.split(" ").slice(0,5).join(" ")}
                         <p className="m-2 text-emerald-700 text-xl">
                           {product?.price} EGP
                         </p>
@@ -193,7 +180,7 @@ export default function WishList() {
                       <td className="px-6 py-4flex justify-center">
                         <div className="m-auto">
                           <button
-                            className="my-3  px-8 py-2 outline-1 rounded-lg border border-emerald-500 text-emerald-950 transition-all duration-300 hover:bg-emerald-600 hover:text-emerald-50 hover:border-emerald-300"
+                            className="my-3  px-8 py-2 outline-1 rounded-lg border border-emerald-500 text-emerald-950 transition-all duration-300  whitespace-nowrap hover:bg-emerald-600 hover:text-emerald-50 hover:border-emerald-300"
                             onClick={() => addToCart(product?.id)}
                           >
                             Add To Cart

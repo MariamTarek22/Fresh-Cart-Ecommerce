@@ -15,7 +15,6 @@ export default function Register() {
   function HandleRegister(values) {
     setisLoading(true);
     // formik send object with inputs values to it
-    console.log(values);
     //call api
     let { data } = axios
       .post(`https://ecommerce.routemisr.com/api/v1/auth/signup`, values)
@@ -29,7 +28,6 @@ export default function Register() {
       })
       .catch((res) => {
         setapiError(res.response.data.message);
-        //console.log(res.response.data.message);
         setisLoading(false);
       });
   }
@@ -112,7 +110,6 @@ export default function Register() {
               value={formik.values.name}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-emerald-500 focus:outline-none focus:ring-0 focus:border-emerald-600 peer"
               placeholder=" "
-              required
             />
             <label
               htmlFor="name"
@@ -139,7 +136,6 @@ export default function Register() {
               value={formik.values.email}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-emerald-500 focus:outline-none focus:ring-0 focus:border-emerald-600 peer"
               placeholder=" "
-              required
             />
             <label
               htmlFor="email"
@@ -166,7 +162,6 @@ export default function Register() {
               value={formik.values.phone}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-emerald-500 focus:outline-none focus:ring-0 focus:border-emerald-600 peer"
               placeholder=" "
-              required
             />
             <label
               htmlFor="phone"
@@ -193,7 +188,6 @@ export default function Register() {
               value={formik.values.password}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-emerald-500 focus:outline-none focus:ring-0 focus:border-emerald-600 peer"
               placeholder=" "
-              required
             />
             <label
               htmlFor="password"
@@ -220,7 +214,6 @@ export default function Register() {
               value={formik.values.rePassword}
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-emerald-500 focus:outline-none focus:ring-0 focus:border-emerald-600 peer"
               placeholder=" "
-              required
             />
             <label
               htmlFor="rePassword"
@@ -242,6 +235,7 @@ export default function Register() {
             <button
               type="submit"
               className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
+              disabled={isLoading}
             >
               {isLoading ? (
                 <i className="fas fa-spinner fa-spin text-white text-2xl"></i>

@@ -21,7 +21,6 @@ export default function Categories() {
     let res = await axios.get(
       `https://ecommerce.routemisr.com/api/v1/categories/${categoryId}/subcategories`
     );
-    console.log(res.data.data);
     setsubCategories(res.data.data);
     setLoading(false);
     scrollDown();
@@ -94,7 +93,7 @@ export default function Categories() {
                 }}
                 className="category border-2"
               >
-                {/* <Link to={`/CategoryProducts/${category.name}`}> */}
+                <Link to={`/CategoryProducts/${category.name}`}> 
                 <img
                   src={category.image}
                   className=" h-[250px] w-full object-cover mb-2"
@@ -103,7 +102,7 @@ export default function Categories() {
                 <h3 className=" text-emerald-600 text-2xl my-4 font-semibold">
                   {category.name}
                 </h3>
-                {/* </Link> */}
+                 </Link> 
               </div>
             </div>
           );

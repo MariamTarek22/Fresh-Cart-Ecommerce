@@ -26,6 +26,7 @@ import Notfound from "./pages/Notfound/Notfound";
 
 
 let Query = new QueryClient();
+
 let x = createBrowserRouter([
   {
     path: "",
@@ -34,10 +35,7 @@ let x = createBrowserRouter([
       {
         index: true,
         element: (
-          <ProtectedRoute>
-            {" "}
             <Home />
-          </ProtectedRoute>
         ),
       },
       {

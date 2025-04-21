@@ -42,7 +42,6 @@ export default function Cart() {
       deleteProduct(id);
     } else {
       let response = await updateProductQuantity(id, count);
-      console.log(response.data.data);
       if (response.data.status == "success") {
         setupdateLoading(false);
         setCartDetails(response.data.data);
@@ -59,7 +58,7 @@ export default function Cart() {
   async function deleteProduct(id) {
     setupdateLoading(true);
     let response = await removeCartItem(id);
-    console.log(response.data);
+
     if (response.data.status == "success") {
       setupdateLoading(false);
       setCartDetails(response.data.data);
@@ -74,7 +73,6 @@ export default function Cart() {
   async function clearCart() {
     setupdateLoading(true);
     let response = await clearCartItems();
-    console.log(response);
     if (response.data.message == "success") {
       setupdateLoading(false);
       setCartDetails({});
@@ -275,7 +273,7 @@ export default function Cart() {
                         </div>
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                        {product.price} EGP
+                        {product.priceAfterDiscount || product.price} EGP
                       </td>
                       <td className="px-6 py-4">
                         <span

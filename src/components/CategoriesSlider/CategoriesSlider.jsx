@@ -55,45 +55,27 @@ export default function CategoriesSlider() {
    
    });
 
-  //  const [categories, setcategories] = useState([]);
-
-  //  function getCategories() {
-  //    axios
-  //      .get(`https:ecommerce.routemisr.com/api/v1/categories`)
-  //      .then((res) => {
-  //        console.log(res.data.data);
-  //        setcategories(res.data.data);
-  //      })
-  //      .catch((res) => {
-  //        console.log(res);
-  //      });
-  //  }
-
-  //  useEffect(() => {
-  //    getCategories();
-  //  }, []);
-
   if (isError) {
     return <h3>{error.message}</h3>;
   }
-  if (isLoading) {
-    return (
-      <div className=" sk-circle">
-        <div className="sk-circle1 sk-child"></div>
-        <div className="sk-circle2 sk-child"></div>
-        <div className="sk-circle3 sk-child"></div>
-        <div className="sk-circle4 sk-child"></div>
-        <div className="sk-circle5 sk-child"></div>
-        <div className="sk-circle6 sk-child"></div>
-        <div className="sk-circle7 sk-child"></div>
-        <div className="sk-circle8 sk-child"></div>
-        <div className="sk-circle9 sk-child"></div>
-        <div className="sk-circle10 sk-child"></div>
-        <div className="sk-circle11 sk-child"></div>
-        <div className="sk-circle12 sk-child"></div>
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className=" sk-circle">
+  //       <div className="sk-circle1 sk-child"></div>
+  //       <div className="sk-circle2 sk-child"></div>
+  //       <div className="sk-circle3 sk-child"></div>
+  //       <div className="sk-circle4 sk-child"></div>
+  //       <div className="sk-circle5 sk-child"></div>
+  //       <div className="sk-circle6 sk-child"></div>
+  //       <div className="sk-circle7 sk-child"></div>
+  //       <div className="sk-circle8 sk-child"></div>
+  //       <div className="sk-circle9 sk-child"></div>
+  //       <div className="sk-circle10 sk-child"></div>
+  //       <div className="sk-circle11 sk-child"></div>
+  //       <div className="sk-circle12 sk-child"></div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <>

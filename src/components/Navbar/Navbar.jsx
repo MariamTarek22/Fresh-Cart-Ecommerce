@@ -10,7 +10,7 @@ export default function Navbar() {
   let Navigate = useNavigate();
   let { userLogin, setuserLogin } = useContext(UserContext);
   let { cartItemsCount } = useContext(CartContext);
-  // console.log(cartItemsCount);
+
   function toggleMenu() {
     setisMenuOpen(!isMenuOpen);
   }
@@ -121,7 +121,7 @@ export default function Navbar() {
         </div>
       </nav> */}
 
-      <nav className="border-gray-200 bg-slate-200 dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b  dark:border-gray-600">
+      <nav className="border-gray-100 bg-slate-100 dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b  dark:border-gray-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
             to=""
@@ -211,7 +211,7 @@ export default function Navbar() {
             id="navbar-sticky"
           >
             {userLogin != null ? (
-              <ul className="flex flex-col p-4 md:p-0 mt-4 mx-5 text-gray-500 text-left font-medium border border-gray-200 rounded-lg bg-slate-200 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 transition-all duration-500 ">
+              <ul className="flex flex-col p-4 md:p-0 mt-4 mx-5 text-gray-500 text-left font-medium border border-gray-200 rounded-lg bg-slate-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 transition-all duration-500 ">
                 <li className="my-2">
                   {" "}
                   <NavLink

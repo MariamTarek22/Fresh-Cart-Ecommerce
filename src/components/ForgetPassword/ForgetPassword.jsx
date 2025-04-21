@@ -28,7 +28,6 @@ export default function ForgetPassword() {
       )
       .then((res) => res)
       .catch((res) => res);
-    console.log(res);
 
     if (res.data?.statusMsg == "success") {
       setloading(false);
@@ -47,7 +46,6 @@ export default function ForgetPassword() {
 
   async function handleCode() {
     setloading(true);
-    console.log(inputValue);
 
     let res = await axios
       .post(
@@ -57,7 +55,6 @@ export default function ForgetPassword() {
       )
       .then((res) => res)
       .catch((res) => res);
-    console.log(res);
 
     if (res.data?.status == "Success") {
       setloading(false);
@@ -84,7 +81,6 @@ export default function ForgetPassword() {
       )
       .then((res) => res)
       .catch((res) => res);
-    console.log(res);
     if (res.status == 200) {
       setloading(false);
       toast.success("Password Reset Successed");

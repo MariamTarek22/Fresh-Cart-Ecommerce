@@ -23,14 +23,12 @@ export default function Brands() {
     queryFn: getBrands,
     // staleTime:10000,
   });
-  console.log(data?.data?.data);
 
   async function getSpecificBrand(brandId) {
     setloading(true);
     let brandDetails = await axios.get(
       `https://ecommerce.routemisr.com/api/v1/brands/${brandId}`
     );
-    console.log(brandDetails.data.data);
     setbrandDetails(brandDetails.data.data);
     setloading(false);
     setstatus(true);

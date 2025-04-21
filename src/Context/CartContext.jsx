@@ -39,7 +39,6 @@ export default function CartContextProvider(props) {
         }
       )
       .then((res) => {
-        console.log(res);
         setcartItemsCount(res.data.numOfCartItems);
         setcartId(res.data.cartId);
         return res;
