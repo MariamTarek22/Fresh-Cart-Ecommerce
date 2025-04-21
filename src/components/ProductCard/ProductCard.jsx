@@ -6,6 +6,7 @@ import { CartContext } from "../../Context/CartContext";
 import { useContext ,useState} from "react";
 import toast from "react-hot-toast";
 import { UserContext } from "../../Context/UserContext";
+import RatingStars from "../RatingStars/RatingStars";
 
 export default function ProductCard({product}) {
     const navigate = useNavigate()
@@ -187,7 +188,7 @@ export default function ProductCard({product}) {
             alt=""
           />
           {product.priceAfterDiscount? <span className="bg-red-400 text-white font-medium absolute top-3 left-4 px-2 py-1 rounded-full">Sale</span>: ''}
-          <span className="absolute bottom-3 right-4 font-semibold text-yellow-300"><i className="fas fa-star text-yellow-300"></i> {product.ratingsAverage}</span>
+          <RatingStars productRate={product.ratingsAverage} />
           </div>
           <h3 className=" text-emerald-600">
             {product.category.name}

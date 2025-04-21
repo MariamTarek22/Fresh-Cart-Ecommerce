@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { WishListContext } from "../../Context/WishListContext";
 import { Helmet } from "react-helmet-async";
 import ProductCard from './../ProductCard/ProductCard';
+import RatingStars from "../RatingStars/RatingStars";
 
 export default function ProductDetails() {
   let { id, category } = useParams(); //get me what i sent in url
@@ -317,11 +318,7 @@ export default function ProductDetails() {
                   </div> :
                  <span className='text-slate-900 no-underline font-semibold'>{proudct?.price} EGP</span>
                 }
-                
-                <span>
-                  <i className="fas fa-star px-1 text-yellow-300"></i>
-                  {proudct?.ratingsAverage}
-                </span>
+                <RatingStars productRate={proudct?.ratingsAverage} />
               </div>
               <div className="flex">
                 <button
