@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import style from "./Login.module.css";
+import  { useContext, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -83,7 +82,7 @@ export default function Login() {
           <span className="font-medium">{apiError}</span>
         </div>
       ) : null}
-      <div className="my-8">
+      <div className="my-10">
         <h2 className="font-bold text-emerald-600 text-2xl mb-3">Login Now</h2>
         <form onSubmit={formik.handleSubmit} className="max-w-md mx-auto">
           <div className="relative z-0 w-full mb-5 group">
@@ -106,7 +105,7 @@ export default function Login() {
           </div>
           {formik.errors.email && formik.touched.email ? (
             <div
-              className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              className="p-4 mb-4 text-sm text-red-600 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 text-left"
               role="alert"
             >
               <span className="font-medium">{formik.errors.email}</span>
@@ -133,7 +132,7 @@ export default function Login() {
           </div>
           {formik.errors.password && formik.touched.password ? (
             <div
-              className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              className="p-4 mb-4 text-sm text-red-600 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 text-left"
               role="alert"
             >
               <span className="font-medium">{formik.errors.password}</span>
@@ -143,7 +142,7 @@ export default function Login() {
           <div className="flex justify-between items-center mb-5">
             <button
               type="submit"
-              className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
+              className="text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-2xl text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -162,7 +161,7 @@ export default function Login() {
           </div>
           <Link to="/register">
             {" "}
-            <span className="text-blue-500 transition-all duration-500 hover:underline mx-2">
+            <span className="text-emerald-500 transition-all duration-500 hover:underline mx-2">
               {" don't you have an account?"}
             </span>
           </Link>

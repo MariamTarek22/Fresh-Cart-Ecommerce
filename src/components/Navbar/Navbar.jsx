@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import style from "./Navbar.module.css";
+import { useContext, useState } from "react";
 import logo from "../../assets/logo.svg";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
@@ -22,105 +21,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* <nav className=" border-gray-200 bg-slate-200 fixed top-0 left-0 right-0 z-10">
-        <div className="flex flex-wrap justify-center md:justify-between items-center mx-auto max-w-screen-xl p-4">
-          <div className="flex items-center  gap-5">
-            <Link
-              to=""
-              className="flex items-center space-x-3 rtl:space-x-reverse"
-            >
-              <img
-                src={logo}
-                width="150px"
-                className="h-8"
-                alt="FreshCart Logo"
-              />
-            </Link>
-            {userLogin != null ? (
-              <ul className="flex gap-5 items-center">
-                <li>
-                  {" "}
-                  <NavLink to="">Home</NavLink>
-                </li>
-                <li>
-                  {" "}
-                  <NavLink to="cart">Cart</NavLink>
-                </li>
-                <li>
-                  {" "}
-                  <NavLink to="wishlist">Wish List</NavLink>
-                </li>
-                <li>
-                  {" "}
-                  <NavLink to="categories">Categories</NavLink>
-                </li>
-                <li>
-                  {" "}
-                  <NavLink to="products">Products</NavLink>
-                </li>
-                <li>
-                  {" "}
-                  <NavLink to="brands">Brands</NavLink>
-                </li>
-              </ul>
-            ) : null}
-          </div>
-
-          <div className="flex items-center space-x-6 rtl:space-x-reverse text-black">
-            <div className="icons flex gap-4 ">
-              <i className="fa-brands fa-facebook"></i>
-              <i className="fa-brands fa-linkedin"></i>
-              <i className="fa-brands fa-youtube"></i>
-              <i className="fa-brands fa-tiktok"></i>
-              <i className="fa-brands fa-twitter"></i>
-            </div>
-            <div className="links flex gap-4">
-              {userLogin ? null : (
-                <>
-                  <Link
-                    to="login"
-                    className="text-sm cursor-pointer transition-all duration-500 hover:bg-emerald-500 hover:rounded-lg hover:text-white py-2 hover:px-2 "
-                  >
-                    Register
-                  </Link>
-                  <Link
-                    to="register"
-                    className="text-sm cursor-pointer transition-all duration-500 hover:bg-emerald-500 hover:rounded-lg hover:text-white py-2 hover:px-2"
-                  >
-                    Sign up
-                  </Link>
-                </>
-              )}
-              {userLogin ? (
-                <div>
-                  {" "}
-                  <Link to="/cart">
-                    {" "}
-                    <i className="fa-solid fa-cart-shopping text-slate-600 p-5 text-xl transition-all duration-500 hover:text-slate-950 relative">
-                      <span
-                        className={
-                          cartItemsCount
-                            ? "absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-emerald-600 rounded-full "
-                            : "hidden"
-                        }
-                      >
-                        {cartItemsCount}
-                      </span>
-                    </i>
-                  </Link>
-                  <span
-                    onClick={signOut}
-                    className="text-sm cursor-pointer transition-all duration-500 hover:bg-red-500 hover:rounded-lg hover:text-white hover:p-2 "
-                  >
-                    SignOut
-                  </span>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      </nav> */}
-
       <nav className="border-gray-100 bg-slate-100 dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b  dark:border-gray-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
@@ -135,18 +35,18 @@ export default function Navbar() {
             />
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <div className="links flex gap-4">
+            <div className="links flex gap-2 justify-between items-center">
               {userLogin ? null : (
                 <>
                   <Link
                     to="login"
-                    className="text-sm cursor-pointer transition-all duration-500 hover:bg-emerald-500 hover:rounded-lg hover:text-white py-2 hover:px-2 "
+                    className="text-sm cursor-pointer transition-all duration-500 bg-emerald-600 hover:bg-emerald-700 rounded-2xl text-white py-2 px-4 font-medium w-1/2 text-nowrap"
                   >
                     Login
                   </Link>
                   <Link
                     to="register"
-                    className="text-sm cursor-pointer transition-all duration-500 hover:bg-emerald-500 hover:rounded-lg hover:text-white py-2 hover:px-2"
+                    className="text-sm cursor-pointer transition-all duration-500 bg-emerald-600 hover:bg-emerald-700 rounded-2xl text-white py-2 px-4 font-medium w-1/2 text-nowrap"
                   >
                     Sign up
                   </Link>
@@ -171,9 +71,9 @@ export default function Navbar() {
                   </Link>
                   <span
                     onClick={signOut}
-                    className="text-sm cursor-pointer m-2 transition-all duration-500 hover:bg-red-500 hover:rounded-lg hover:text-white hover:p-2 "
+                    className="text-sm cursor-pointer m-2 transition-all duration-500 hover:bg-red-500 hover:rounded-full hover:text-white hover:p-3 "
                   >
-                    SignOut
+                    Sign out
                   </span>
                 </div>
               ) : null}

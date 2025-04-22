@@ -67,7 +67,7 @@ export default function Register() {
     ),
     rePassword: Yup.string()
       .oneOf([Yup.ref("password")], "rePassword didnt matches password")
-      .required("rePassword is required"),
+      .required("re enter same password is required"),
   });
   let formik = useFormik({
     initialValues: {
@@ -89,7 +89,7 @@ export default function Register() {
       </Helmet>
       {apiError ? (
         <div
-          className="mx-auto my-4 w-1/2 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          className="mx-auto my-4 w-1/2 p-4 mb-4 text-sm text-red-700 rounded-lg bg-red-50 dark:bg-gray-700 dark:text-red-400 text-left"
           role="alert"
         >
           <span className="font-medium">{apiError}</span>
@@ -120,7 +120,7 @@ export default function Register() {
           </div>
           {formik.errors.name && formik.touched.name ? (
             <div
-              className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              className="p-4 mb-4 text-sm text-red-700 rounded-lg bg-red-50 dark:bg-gray-700 dark:text-red-400 text-left"
               role="alert"
             >
               <span className="font-medium">{formik.errors.name}</span>
@@ -146,7 +146,7 @@ export default function Register() {
           </div>
           {formik.errors.email && formik.touched.email ? (
             <div
-              className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              className="p-4 mb-4 text-sm text-red-700 rounded-lg bg-red-50 dark:bg-gray-700 dark:text-red-400 text-left"
               role="alert"
             >
               <span className="font-medium">{formik.errors.email}</span>
@@ -172,7 +172,7 @@ export default function Register() {
           </div>
           {formik.errors.phone && formik.touched.phone ? (
             <div
-              className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              className="p-4 mb-4 text-sm text-red-700 rounded-lg bg-red-50 dark:bg-gray-700 dark:text-red-400 text-left"
               role="alert"
             >
               <span className="font-medium">{formik.errors.phone}</span>
@@ -198,7 +198,7 @@ export default function Register() {
           </div>
           {formik.errors.password && formik.touched.password ? (
             <div
-              className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              className="p-4 mb-4 text-sm text-red-700 rounded-lg bg-red-50 dark:bg-gray-700 dark:text-red-400 text-left"
               role="alert"
             >
               <span className="font-medium">{formik.errors.password}</span>
@@ -219,12 +219,12 @@ export default function Register() {
               htmlFor="rePassword"
               className="left-0 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-emerald-600 peer-focus:dark:text-emerald-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              ReEnter Your password
+              Re enter Your password
             </label>
           </div>
           {formik.errors.rePassword && formik.touched.rePassword ? (
             <div
-              className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+              className="p-4 mb-4 text-sm text-red-700 rounded-lg bg-red-50 dark:bg-gray-700 dark:text-red-400 text-left"
               role="alert"
             >
               <span className="font-medium">{formik.errors.rePassword}</span>
@@ -234,18 +234,18 @@ export default function Register() {
           <div className="flex justify-between items-center">
             <button
               type="submit"
-              className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
+              className="text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-2xl text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-700"
               disabled={isLoading}
             >
               {isLoading ? (
                 <i className="fas fa-spinner fa-spin text-white text-2xl"></i>
               ) : (
-                "signUp"
+                "Sign up"
               )}
             </button>
             <Link to="/login">
               {" "}
-              <span className="text-blue-500 underline mx-2">
+              <span className="text-emerald-500 underline mx-2">
                 do you have an account already?
               </span>
             </Link>
