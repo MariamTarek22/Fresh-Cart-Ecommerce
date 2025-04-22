@@ -197,9 +197,9 @@ export default function ProductCard({product}) {
             {product.title.split(" ").slice(0, 2).join(" ")}
           </h3>
           <div className="flex justify-between p-3">
-            <span className={product.priceAfterDiscount? 'line-through text-red-600': 'text-slate-900 no-underline font-semibold'}>{product.price} EGP</span>
+            <span className={product.priceAfterDiscount? 'line-through text-red-600': 'text-slate-900 no-underline font-semibold'}>{product.price.toLocaleString()} EGP</span>
             {product.priceAfterDiscount? 
-            <span className="text-slate-900 font-semibold">{product.priceAfterDiscount} EGP</span> : ' '}
+            <span className="text-slate-900 font-semibold">{product.priceAfterDiscount.toLocaleString()} EGP</span> : ' '}
           </div>
       </div>
     

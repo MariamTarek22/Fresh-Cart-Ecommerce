@@ -63,7 +63,7 @@ export default function RecentProducts() {
       const filtered = AllProducts.filter((product) =>
         product.title.toLowerCase().includes(value.toLowerCase())
       );
-      setFilteredProducts(filtered);
+      setFilteredProducts(filtered); //use setFilteredProducts(filtered); in separate filter array instead of setAllProducts(filtered); so i can show allproducts when the filter value is empty cause data.data.data holds the last page products only
     }
   };
 
@@ -144,15 +144,13 @@ export default function RecentProducts() {
           }
         >
           <div className="row w-full">
-            { FilteredProducts.length > 0 ? FilteredProducts.map((product)=> <ProductCard product={product} key={product.id} />) 
-             :  AllProducts.map((product) => (
-              <ProductCard product={product} key={product.id} />
-            ))}
+            { 
+            InputValue && FilteredProducts.length > 0 ? FilteredProducts.map((product) => (<ProductCard product={product} key={product.id+1} />)) 
+            : InputValue ? <h2 className="mx-auto p-10 font-semibold text-2xl">No Products found with the search Value</h2>
+             : AllProducts.map((product) => (<ProductCard product={product} key={product.id} />)) }
           </div>
         </InfiniteScroll>
-      ) : (
-        <h2>No Products found</h2>
-      )}
+      ) : <h2>No Products Available</h2>}
     </>
   );
 }

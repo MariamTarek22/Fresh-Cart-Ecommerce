@@ -140,7 +140,7 @@ export default function AllOrders() {
                       </div>
                     </div>
                     <span className="text-lg font-medium text-emerald-600">
-                      {item.price} EGP
+                      {item.price.toLocaleString()} EGP
                     </span>
                   </li>
                 ))}
@@ -150,7 +150,7 @@ export default function AllOrders() {
             {/* Total Price */}
             <div className="flex justify-end mt-4">
               <p className="text-xl font-bold">
-                Total: {order.totalOrderPrice} EGP
+                Total: {order.totalOrderPrice.toLocaleString()} EGP
               </p>
             </div>
           </div>

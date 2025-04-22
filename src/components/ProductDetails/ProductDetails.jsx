@@ -313,10 +313,10 @@ export default function ProductDetails() {
                 {
                   proudct?.priceAfterDiscount? 
                   <div className="flex gap-2">
-                    <span className= 'line-through text-red-600'>{proudct?.price} EGP</span>
-                    <span className="text-slate-900 font-semibold">{proudct?.priceAfterDiscount} EGP</span>
+                    <span className= 'line-through text-red-600'>{proudct?.price.toLocaleString()} EGP</span>
+                    <span className="text-slate-900 font-semibold">{proudct?.priceAfterDiscount.toLocaleString()} EGP</span>
                   </div> :
-                 <span className='text-slate-900 no-underline font-semibold'>{proudct?.price} EGP</span>
+                 <span className='text-slate-900 no-underline font-semibold'>{proudct?.price.toLocaleString()} EGP</span>
                 }
                 <RatingStars productRate={proudct?.ratingsAverage} />
               </div>

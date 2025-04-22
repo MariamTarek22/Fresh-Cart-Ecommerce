@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import style from "./WishList.module.css";
+import { useState } from "react";
 import { useContext } from "react";
 import { WishListContext } from "../../Context/WishListContext";
 import { useEffect } from "react";
@@ -166,7 +165,7 @@ export default function WishList() {
                       <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                         {product?.title.split(" ").slice(0,5).join(" ")}
                         <p className="m-2 text-emerald-700 text-xl">
-                          {product?.price} EGP
+                          {product?.price.toLocaleString()} EGP
                         </p>
                         <span
                           onClick={() => deleteProduct(product?.id)}

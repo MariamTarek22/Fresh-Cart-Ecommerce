@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import style from "./Cart.module.css";
 import { useContext } from "react";
 import { CartContext } from "../../Context/CartContext";
@@ -157,7 +157,7 @@ export default function Cart() {
             <div>
               <span className={style.label}>Total Price:</span>
               <span className={style.amount}>
-                {CartDetails?.totalCartPrice} EGP
+                {CartDetails?.totalCartPrice.toLocaleString()} EGP
               </span>
             </div>
             <div>
@@ -273,7 +273,7 @@ export default function Cart() {
                         </div>
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                        {product.priceAfterDiscount || product.price} EGP
+                        {product?.priceAfterDiscount?.toLocaleString() || product?.price?.toLocaleString()} EGP
                       </td>
                       <td className="px-6 py-4">
                         <span
