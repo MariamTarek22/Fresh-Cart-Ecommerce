@@ -1,102 +1,94 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { CartContext } from "../../Context/CartContext";
+import { useContext, useEffect, useState } from "react";
 import { WishListContext } from "../../Context/WishListContext";
 import Notfound from "../../pages/Notfound/Notfound";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { UserContext } from "../../Context/UserContext";
 import ProductCard from "../ProductCard/ProductCard";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function RecentProducts() {
+  const { userLogin } = useContext(UserContext);
+  const { getLoggedWishList, setWishList } = useContext(WishListContext);
 
-  let { userLogin, setuserLogin } = useContext(UserContext);
+  const [AllProducts, setAllProducts] = useState([]);
+  const [FilteredProducts, setFilteredProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [InputValue, setInputValue] = useState("");
 
-  //let { data, error, isError, isLoading } = useProducts();
-  const [AllProducts, setAllProducts] = useState("");
-  const productsRef = useRef(null);
-
-  function getProducts() {
-    return axios.get(`https://ecommerce.routemisr.com/api/v1/products`, {
-      // params: { page, limit: 12 }, // Modify based on your API
+  const getProducts = (page) =>
+    axios.get(`https://ecommerce.routemisr.com/api/v1/products`, {
+      params: { page, limit: 12 },
     });
-  }
-  let productsInfo = useQuery({
-    queryKey: ["recentProducts"], // Include page in queryKey for refetching ["recentProducts",page]
-    queryFn: () => getProducts(), //getProducts(page)
-    keepPreviousData: true, // Keeps previous data while fetching new page
+
+  const { data, error, isError, isLoading } = useQuery({
+    queryKey: ["recentProducts", currentPage], // Include page in queryKey for refetching ["recentProducts",page]
+    queryFn: () => getProducts(currentPage),  // Keeps previous data while fetching new page
+    keepPreviousData: true,
   });
-  let { data, error, isError, isLoading } = productsInfo;
 
-  const [wishListLoadding, setWishListLoadding ] = useState(false);
-  const [loadingGetWishListItems, setloadingGetWishListItems] = useState(false);
-  const [InputValue, setInputValue] = useState([]);
-  let { getLoggedWishList ,setWishList } = useContext(WishListContext);
-
-  async function getWishListItems() {
-    setWishListLoadding(true)
-    let response = await getLoggedWishList();
-    if (response?.data?.status == "success") {
-      let wishlistProductsIds = response.data.data.map((product) => product.id);
-      setWishList(wishlistProductsIds);
-      setloadingGetWishListItems(true);
+  useEffect(() => {
+    if (data?.data?.data) {
+      setAllProducts((prev) =>
+        currentPage === 1 ? data.data.data : [...prev, ...data.data.data]
+      );
+      setTotalPages(data.data.metadata.numberOfPages);
     }
-    if (response?.response?.status == 404) {
-      setWishListLoadding(false);
-    }
-  }
+  }, [data]);
 
-  function handleInputChange(e) {
+  useEffect(() => {
+    const fetchWishList = async () => {
+      let response = await getLoggedWishList();
+      if (response?.data?.status === "success") {
+        const wishlistProductsIds = response.data.data.map((p) => p.id);
+        setWishList(wishlistProductsIds);
+      }
+    };
+    if (userLogin) {
+      fetchWishList();
+    }
+  }, [userLogin]);
+
+  const handleInputChange = (e) => {
     const newValue = e.target.value;
     setInputValue(newValue);
     filterProducts(newValue);
-  }
-  function filterProducts(value) {
-    if (value == "") {
-      setAllProducts(data.data.data);
+  };
+
+  const filterProducts = (value) => {
+    if (value=="") {
+      setFilteredProducts([])
     } else {
-      let filteredProducts = data.data.data.filter((product) =>
+      const filtered = AllProducts.filter((product) =>
         product.title.toLowerCase().includes(value.toLowerCase())
-      ); // if i made it filter with allProducts state when i go backspace it will search of allproducts array which is not allproducts it is the last seached items
-      setAllProducts(filteredProducts);
+      );
+      setFilteredProducts(filtered);
     }
-  }
+  };
 
-  useEffect(() => {
-    setAllProducts(data?.data?.data);
-  }, [data?.data?.data]);
-
-  useEffect(() => {
-    if (userLogin) {
-      getWishListItems();
-    } 
-  }, []);
-
-  if (isError) {
-    return <Notfound error={error.message} />;
-  }
-  if (isLoading) {
+  if (isError) return <Notfound error={error.message} />;
+  if (isLoading && currentPage === 1) 
     return (
-      <div className=" sk-circle">
-        <div className="sk-circle1 sk-child"></div>
-        <div className="sk-circle2 sk-child"></div>
-        <div className="sk-circle3 sk-child"></div>
-        <div className="sk-circle4 sk-child"></div>
-        <div className="sk-circle5 sk-child"></div>
-        <div className="sk-circle6 sk-child"></div>
-        <div className="sk-circle7 sk-child"></div>
-        <div className="sk-circle8 sk-child"></div>
-        <div className="sk-circle9 sk-child"></div>
-        <div className="sk-circle10 sk-child"></div>
-        <div className="sk-circle11 sk-child"></div>
-        <div className="sk-circle12 sk-child"></div>
-      </div>
-    );
-  }
-
+    <div className=" sk-circle">
+      <div className="sk-circle1 sk-child"></div>
+      <div className="sk-circle2 sk-child"></div>
+      <div className="sk-circle3 sk-child"></div>
+      <div className="sk-circle4 sk-child"></div>
+      <div className="sk-circle5 sk-child"></div>
+      <div className="sk-circle6 sk-child"></div>
+      <div className="sk-circle7 sk-child"></div>
+      <div className="sk-circle8 sk-child"></div>
+      <div className="sk-circle9 sk-child"></div>
+      <div className="sk-circle10 sk-child"></div>
+      <div className="sk-circle11 sk-child"></div>
+      <div className="sk-circle12 sk-child"></div>
+    </div>
+  );
   return (
     <>
-      {/* search input */}
-      <div className="max-w-md mx-auto mt-14" ref={productsRef}>
+        {/* search input */}
+        <div className="max-w-md mx-auto mt-14">
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -139,12 +131,28 @@ export default function RecentProducts() {
         </div>
       </div>
 
-      {/* products rendering */}
-        <div className="row w-full">
-           { AllProducts?.length>0 ? AllProducts?.map((product) => {
-                return <ProductCard product={product} key={product.id} />
-              }): <h2>No Products found</h2>}
+      {/* Product List */}
+      {AllProducts.length > 0 ? (
+        <InfiniteScroll
+          dataLength={AllProducts.length}
+          next={() => setCurrentPage((prev) => prev + 1)}
+          hasMore={currentPage < totalPages}
+          loader={
+            <div className="flex justify-center py-4">
+              <span className="infinite-scroll-loader"></span>
+            </div>
+          }
+        >
+          <div className="row w-full">
+            { FilteredProducts.length > 0 ? FilteredProducts.map((product)=> <ProductCard product={product} key={product.id} />) 
+             :  AllProducts.map((product) => (
+              <ProductCard product={product} key={product.id} />
+            ))}
           </div>
+        </InfiniteScroll>
+      ) : (
+        <h2>No Products found</h2>
+      )}
     </>
   );
 }
