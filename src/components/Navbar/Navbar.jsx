@@ -34,26 +34,26 @@ export default function Navbar() {
               alt="FreshCart Logo"
             />
           </Link>
-          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <div className="links flex gap-2 justify-between items-center">
+          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse md:w-1/4 lg:w-1/6 w-auto items-center">
+            <div className="links flex gap-2 justify-between items-center w-full">
               {userLogin ? null : (
                 <>
                   <Link
                     to="login"
-                    className="text-sm cursor-pointer transition-all duration-500 bg-emerald-600 hover:bg-emerald-700 rounded-2xl text-white py-2 px-4 font-medium w-1/2 text-nowrap"
+                    className="text-nowrap w-1/2 py-2 px-4 text-center bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white font-bold rounded-lg shadow-sm transform transition-all duration-300 hover:scale-105 hover:shadow-emerald-500/25 focus:outline-none focus:ring-4 focus:ring-emerald-300/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none group overflow-hidden relative"
                   >
                     Login
                   </Link>
                   <Link
                     to="register"
-                    className="text-sm cursor-pointer transition-all duration-500 bg-emerald-600 hover:bg-emerald-700 rounded-2xl text-white py-2 px-4 font-medium w-1/2 text-nowrap"
+                    className="text-nowrap w-1/2 py-2 px-4 text-center bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white font-bold rounded-lg shadow-sm transform transition-all duration-300 hover:scale-105 hover:shadow-emerald-500/25 focus:outline-none focus:ring-4 focus:ring-emerald-300/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none group overflow-hidden relative"
                   >
                     Sign up
                   </Link>
                 </>
               )}
               {userLogin ? (
-                <div className=" flex items-center justify-center">
+                <div className=" flex items-center gap-4 justify-center">
                   {" "}
                   <Link to="/cart">
                     {" "}
@@ -69,12 +69,25 @@ export default function Navbar() {
                       </span>
                     </i>
                   </Link>
-                  <span
+                  <button
                     onClick={signOut}
-                    className="text-sm cursor-pointer m-2 transition-all duration-500 hover:bg-red-500 hover:rounded-full hover:text-white hover:p-3 "
+                    className="group text-nowrap relative inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm transition-all duration-300 hover:bg-red-50 hover:border-red-300 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 active:scale-95"
                   >
+                    <svg
+                      className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                      />
+                    </svg>
                     Sign out
-                  </span>
+                  </button>
                 </div>
               ) : null}
             </div>
